@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useStore } from '../state/store'
 import type { Pane } from '../state/types'
+import { useTranslation } from 'react-i18next'
 
 type Props = { pane: Pane; onClose: () => void }
 
 export function PaneHeader({ pane, onClose }: Props) {
+  const { t } = useTranslation()
   const renameTask = useStore((s) => s.renameTask)
   const toggleMinimize = useStore((s) => s.toggleMinimize)
   const [editing, setEditing] = useState(false)
@@ -53,12 +55,12 @@ export function PaneHeader({ pane, onClose }: Props) {
             setEditing(true)
           }}
         >
-          {pane.task || <em className="placeholder">untitled</em>}
+          {pane.task || <em className="placeholder">{t('paneHeader.untitled')}</em>}
         </span>
       )}
       <span className="pane-spacer" />
       {pane.status === 'exited' && (
-        <span className="pane-exit-code">exit {pane.exitCode ?? '?'}</span>
+        <span className="pane-exit-code">{t('paneHeader.exitPrefix')} {pane.exitCode ?? '?'}</span>
       )}
       <button
         className="pane-minimize"
@@ -66,12 +68,12 @@ export function PaneHeader({ pane, onClose }: Props) {
           e.stopPropagation()
           toggleMinimize(pane.id)
         }}
-        aria-label="minimize pane"
-        title="Archive — keeps PTY alive"
+        aria-label={t('paneHeader.minimizeLabel')}
+        title={t('paneHeader.minimizeTitle')}
       >
         −
       </button>
-      <button className="pane-close" onClick={onClose} aria-label="close pane">
+      <button className="pane-close" onClick={onClose} aria-label={t('paneHeader.closeLabel')}>
         ×
       </button>
     </div>
