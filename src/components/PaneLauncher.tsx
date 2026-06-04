@@ -3,10 +3,12 @@ import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { homeDir } from '@tauri-apps/api/path'
 import { useStore } from '../state/store'
 import { dirs, ipc, recentDirs, repoContext, type RecentDir } from '../lib/ipc'
+import { useTranslation } from 'react-i18next'
 
 const HOME_FALLBACK = '/Users/stevenjunop'
 
 export function PaneLauncher() {
+  const { t } = useTranslation()
   const isOpen = useStore((s) => s.isLauncherOpen)
   const close = useStore((s) => s.closeLauncher)
   const addPane = useStore((s) => s.addPane)
@@ -69,7 +71,7 @@ export function PaneLauncher() {
 
   async function start() {
     if (!cwd) {
-      setError('Pick a directory first')
+      setError(t('launcher.errorEmpty'))
       return
     }
     try {
@@ -137,9 +139,9 @@ export function PaneLauncher() {
   return (
     <div className="launcher-backdrop" onClick={close}>
       <div className="launcher" onClick={(e) => e.stopPropagation()}>
-        <h2>New pane</h2>
+        <h2>{t('launcher.title')}</h2>
 
-        <label>Directory</label>
+        <label>{t('launcher.directory')}</label>
         <div className="launcher-row launcher-cwd-row">
           <div className="launcher-cwd-wrap">
             <input
@@ -152,7 +154,7 @@ export function PaneLauncher() {
               }}
               onKeyDown={onCwdKeyDown}
               onFocus={() => setShowCompletions(true)}
-              placeholder="/path/to/repo  (Tab to autocomplete)"
+              placeholder={t('launcher.placeholder')}
               spellCheck={false}
               autoComplete="off"
             />
@@ -171,12 +173,12 @@ export function PaneLauncher() {
               </div>
             )}
           </div>
-          <button onClick={browse}>Browse…</button>
+          <button onClick={browse}>{t('launcher.browse')}</button>
         </div>
 
         {recents.length > 0 && (
           <>
-            <label>Recent</label>
+            <label>{t('launcher.recent')}</label>
             <div className="launcher-recents">
               {recents.map((r) => (
                 <button
@@ -192,7 +194,7 @@ export function PaneLauncher() {
           </>
         )}
 
-        <label>Kind</label>
+        <label>{t('launcher.kind')}</label>
         <div className="launcher-row">
           <label className="radio">
             <input
@@ -200,7 +202,7 @@ export function PaneLauncher() {
               checked={kind === 'claude'}
               onChange={() => setKind('claude')}
             />
-            Claude (with auto-injected repo context)
+            {t('launcher.claudeOption')}
           </label>
           <label className="radio">
             <input
@@ -208,16 +210,16 @@ export function PaneLauncher() {
               checked={kind === 'shell'}
               onChange={() => setKind('shell')}
             />
-            Shell
+            {t('launcher.shellOption')}
           </label>
         </div>
 
         {error && <div className="launcher-error">{error}</div>}
 
         <div className="launcher-actions">
-          <button onClick={close}>Cancel</button>
+          <button onClick={close}>{t('launcher.cancel')}</button>
           <button className="primary" onClick={start}>
-            Start
+            {t('launcher.start')}
           </button>
         </div>
       </div>
