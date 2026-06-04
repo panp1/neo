@@ -1,0 +1,35 @@
+{
+  "welcome": {
+    "subtitle": "进入矩阵",
+    "placeholder": "~/projects/your-repo",
+    "errorEmpty": "输入路径（或 \"cd /path/to/repo\"）后按回车"
+  },
+  "launcher": {
+    "title": "新建面板",
+    "directory": "目录",
+    "recent": "最近",
+    "kind": "类型",
+    "browse": "浏览…",
+    "cancel": "取消",
+    "start": "启动",
+    "placeholder": "/path/to/repo（Tab 键自动补全）",
+    "errorEmpty": "请先选择目录",
+    "claudeOption": "Claude（自动注入仓库上下文）",
+    "shellOption": "Shell"
+  },
+  "paneHeader": {
+    "untitled": "未命名",
+    "minimizeTitle": "归档 — 保持 PTY 存活",
+    "minimizeLabel": "最小化面板",
+    "closeLabel": "关闭面板",
+    "exitPrefix": "退出"
+  },
+  "dock": {
+    "label": "已归档",
+    "restoreHint": "点击恢复",
+    "untitled": "未命名"
+  },
+  "app": {
+    "newPaneLabel": "新建面板"
+  }
+}

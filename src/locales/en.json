@@ -1,0 +1,35 @@
+{
+  "welcome": {
+    "subtitle": "enter the matrix",
+    "placeholder": "~/projects/your-repo",
+    "errorEmpty": "type a path (or \"cd /path/to/repo\") and press enter"
+  },
+  "launcher": {
+    "title": "New pane",
+    "directory": "Directory",
+    "recent": "Recent",
+    "kind": "Kind",
+    "browse": "Browse…",
+    "cancel": "Cancel",
+    "start": "Start",
+    "placeholder": "/path/to/repo  (Tab to autocomplete)",
+    "errorEmpty": "Pick a directory first",
+    "claudeOption": "Claude (with auto-injected repo context)",
+    "shellOption": "Shell"
+  },
+  "paneHeader": {
+    "untitled": "untitled",
+    "minimizeTitle": "Archive — keeps PTY alive",
+    "minimizeLabel": "minimize pane",
+    "closeLabel": "close pane",
+    "exitPrefix": "exit"
+  },
+  "dock": {
+    "label": "archived",
+    "restoreHint": "click to restore",
+    "untitled": "untitled"
+  },
+  "app": {
+    "newPaneLabel": "new pane"
+  }
+}
