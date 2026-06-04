@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../state/store'
 import { MatrixRain } from './MatrixRain'
 
@@ -20,6 +21,7 @@ function parsePath(raw: string): string | null {
 }
 
 export function Welcome() {
+  const { t } = useTranslation()
   const addPane = useStore((s) => s.addPane)
   const [input, setInput] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -28,7 +30,7 @@ export function Welcome() {
   async function launch() {
     const cwd = parsePath(input)
     if (!cwd) {
-      setError('type a path (or "cd /path/to/repo") and press enter')
+      setError(t('welcome.errorEmpty'))
       return
     }
     try {
@@ -43,7 +45,7 @@ export function Welcome() {
       <MatrixRain />
       <div className="welcome-overlay">
         <h1 className="welcome-title">NEO</h1>
-        <p className="welcome-sub">enter the matrix</p>
+        <p className="welcome-sub">{t('welcome.subtitle')}</p>
         <div className="welcome-prompt">
           <span className="welcome-prompt-prefix">$&nbsp;cd&nbsp;</span>
           <input
@@ -63,7 +65,7 @@ export function Welcome() {
             autoFocus
             spellCheck={false}
             autoComplete="off"
-            placeholder="~/projects/your-repo"
+            placeholder={t('welcome.placeholder')}
           />
         </div>
         {error && <div className="welcome-error">{error}</div>}
