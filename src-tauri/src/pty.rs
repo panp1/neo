@@ -62,6 +62,18 @@ impl PtyManager {
     }
 }
 
+/// GUI-launched apps inherit a minimal macOS PATH. This resolves the user's
+/// full login+interactive PATH so Homebrew, nvm, and similar tools are found.
+fn resolve_user_path(shell: &str) -> Option<String> {
+    let out = std::process::Command::new(shell)
+        .args(["-l", "-i", "-c", "printf '%s' \"$PATH\""])
+        .output()
+        .ok()?;
+    let path = String::from_utf8(out.stdout).ok()?;
+    let path = path.trim().to_string();
+    if path.is_empty() { None } else { Some(path) }
+}
+
 pub fn build_command(kind: PaneKind, cwd: &str) -> CommandBuilder {
     let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/zsh".to_string());
     let mut cmd = CommandBuilder::new(&shell);
@@ -71,9 +83,11 @@ pub fn build_command(kind: PaneKind, cwd: &str) -> CommandBuilder {
         cmd.arg("claude");
     }
     cmd.cwd(cwd);
-    // Preserve key env vars
     for (k, v) in std::env::vars() {
         cmd.env(k, v);
+    }
+    if let Some(path) = resolve_user_path(&shell) {
+        cmd.env("PATH", path);
     }
     cmd
 }
