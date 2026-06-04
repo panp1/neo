@@ -3,9 +3,11 @@ import { GridLayout } from './components/GridLayout'
 import { PaneLauncher } from './components/PaneLauncher'
 import { MinimizedDock } from './components/MinimizedDock'
 import { Welcome } from './components/Welcome'
+import { useTranslation } from 'react-i18next'
 import { useStore } from './state/store'
 
 export default function App() {
+  const { t } = useTranslation()
   const panes = useStore((s) => s.panes)
   const openLauncher = useStore((s) => s.openLauncher)
 
@@ -22,7 +24,7 @@ export default function App() {
           className="fab-new-pane"
           onClick={openLauncher}
           disabled={panes.length >= 10}
-          aria-label="new pane"
+          aria-label={t('app.newPaneLabel')}
         >
           ＋
         </button>

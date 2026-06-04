@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../state/store'
 
 export function MinimizedDock() {
@@ -10,12 +11,13 @@ export function MinimizedDock() {
   const toggleMinimize = useStore((s) => s.toggleMinimize)
   const setFocus = useStore((s) => s.setFocus)
   const minimized = useMemo(() => panes.filter((p) => p.minimized), [panes])
+  const { t } = useTranslation()
 
   if (minimized.length === 0) return null
 
   return (
     <div className="minimized-dock">
-      <span className="minimized-dock-label">archived</span>
+      <span className="minimized-dock-label">{t('dock.label')}</span>
       {minimized.map((p) => {
         const cls = [
           'minimized-chip',
@@ -32,7 +34,7 @@ export function MinimizedDock() {
               toggleMinimize(p.id)
               setFocus(p.id)
             }}
-            title={`${p.repo} · ${p.task || 'untitled'} — click to restore`}
+            title={`${p.repo} · ${p.task || t('dock.untitled')} — ${t('dock.restoreHint')}`}
           >
             <span className="minimized-chip-repo">{p.repo}</span>
             {p.task && <span className="minimized-chip-task">· {p.task}</span>}
