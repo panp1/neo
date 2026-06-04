@@ -14,6 +14,8 @@ Frosted-glass window, clean monochrome terminals, repo context auto-injection �
 
 </div>
 
+[English](README.md) | [中文](README.zh.md)
+
 ---
 
 ## Why NEO
